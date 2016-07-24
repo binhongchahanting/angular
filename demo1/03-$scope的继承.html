@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body >
+
+
+<div ng-controller="one">
+    {{msg}}
+    <div ng-controller="two">
+        {{msg}}
+    </div>
+</div>
+
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .controller("one",function($scope,$rootScope){
+                    $scope.msg = "hello one"
+                })
+                .controller("two",function($scope,$rootScope){
+                    //$scope.msg = "hello two"
+                })
+
+
+
+    })(angular)
+</script>
+</body>
+</html>

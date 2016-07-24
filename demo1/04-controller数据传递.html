@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="well" ng-controller="one">
+    {{msg}}
+    <div class="well" ng-controller="two">
+        {{msg}}
+        <a class="btn btn-danger" ng-click="doSub()">点我传值</a>
+        <div class="well" ng-controller="three">
+            {{msg}}
+        </div>
+    </div>
+</div>
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .controller("one",function($scope){
+                    $scope.msg ="one";
+                    $scope.$on("toOne",function(event,data){
+                        $scope.msg += "--" +data
+                        console.log(data);
+                    })
+                })
+                .controller("two",function($scope){
+                    $scope.msg ="two";
+                    $scope.doSub = function(){
+                        //向父控制器传递Event和数据
+                        //$emit(key,val)
+                        $scope.$emit("toOne","this is two! emit");
+                        //是向子控制器传递事件与数据
+                        $scope.$broadcast("toThree","two向下传递");
+                    }
+                })
+                .controller("three",function($scope){
+                    $scope.msg ="three";
+                    $scope.$on("toThree",function(ev,data){
+                        $scope.msg +="-"+data
+                    })
+                })
+
+    })(angular)
+</script>
+</body>
+</html>

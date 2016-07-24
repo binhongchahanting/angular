@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .tt {
+            animation: aa 1s ease;
+        }
+
+        @keyframes aa {
+            from { width: 100px}
+            to { width:500px}
+        }
+    </style>
+
+</head>
+<body >
+
+<div ng-controller="oneCtrl">
+    <hello title="{{title}}" cmd="login()">
+    </hello>
+</div>
+<div ng-controller="secCtrl">
+    <hello title="{{title2}}" cmd="login2()">
+    </hello>
+</div>
+<div ng-controller="thrCtrl">
+    <hello title="{{title3}}" cmd="login3()">
+    </hello>
+</div>
+
+
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+
+        //directive 复用
+        $.module("demo",[])
+                .directive("hello",function(){
+                    return {
+                        //设置指令拥有独立作用域,可以进行控制器与指令之间的数据(事件的绑定)
+                        scope:{
+                            cmd:"&",
+                            title:"@"
+                        }, //&:绑定控制器与指令
+                        //restrict属性限制自定指令
+                        //在页面上的显示方式
+                        //A: attribute
+                        //E: element
+                        //C: class
+                        //M: notation 注解
+                        restrict:"AECM",
+                        //html模板: 模板定义 : template: templateUrl
+                        //template:"<div class='well'>hello</div>",
+                        templateUrl:"app/templates/hello.html",
+                        //replace 指自定的指令内部的内容是否要替换
+                        replace:false,
+                        //transclude 交换 ng-transclude
+                        transclude:true, //ng-transclude,
+                        //用来控制指令内部的模板,仅用于指令内部
+                        //用于获取指令上的自定义属性的内容
+                        //scope 模板view的作用域
+                        //element是用于操作template dom
+                        //attrs 是用于获取指令上定义的属性值
+                        //controllers[]
+                        link:function(scope,element,attrs){
+//                            console.log(attrs.logincmd);
+//                            //scope.cd = attrs.logincmd;
+//                            scope.txt =attrs.title;
+                            //jquery jqlit
+                            //$("#id")
+//                            element.on("click",function(){
+//                                alert(1);
+//                            })
+
+                            element.children().addClass("tt");
+                        }
+
+
+                    }
+
+                })
+                .controller("oneCtrl",function($scope){
+                    $scope.title="用户登录";
+                    $scope.login = function(){
+                        alert("用户登录");
+                    }
+                })
+                .controller("secCtrl",function($scope){
+                    $scope.title2="手机登录";
+                    $scope.login2 = function(){
+                        alert("手机登录");
+                    }
+                })
+                .controller("thrCtrl",function($scope){
+                    $scope.title3="后台管理系统登录";
+                    $scope.login3 = function(){
+                        alert("后台管理系统登录");
+                    }
+                })
+    })(angular)
+</script>
+</body>
+</html>

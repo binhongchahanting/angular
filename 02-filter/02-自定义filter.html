@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>自定义filter</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="one">
+
+{{msg | hello }}
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .filter("hello",function(){
+                     return function(input){
+                         //根据需要对input进行处理
+                         return input[0].toUpperCase() + input.slice(1);
+                     }
+                })
+                .controller("one",function($scope){
+                    $scope.msg = "hello filter"
+                })
+
+
+    })(angular)
+</script>
+</body>
+</html>

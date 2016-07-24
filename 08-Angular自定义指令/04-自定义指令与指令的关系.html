@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<hello world2 world>adfadfasdf</hello>
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .directive("hello",function(){
+                    return {
+                        restrict:"AE",
+                        template:"<div class='well'>hello<div class='well' ng-transclude></div></div>",
+                        replace:false,
+                        transclude:true,
+                        //指令内部:controller是向外暴露公有方法
+                        //让其它指令进行调用
+                        controller:function($scope,$element){
+                            this.doSome = function(){
+                                alert("hello");
+                            }
+                        },
+                        //用于指令内部调用，
+                        link:function(scope,element,attrs){
+
+                        }
+                    }
+                })
+                .directive("world2",function(){
+                    return {
+                        require:"^?hello",//world指令从[""]继承
+                        restrict:"AE",
+                        controller:function($scope,$element){
+                            this.doSome2 = function(){
+                                alert("hello2");
+                            }
+                        },
+                        //
+                        link:function(scope,element,attrs,ctrls){
+
+                        }
+                    }
+                })
+                .directive("world",function(){
+                    return {
+                        require:["^?hello","^?world2"],//world指令从[""]继承
+                        restrict:"AE",
+                        //
+                        link:function(scope,element,attrs,ctrls){
+                            ctrls[0].doSome();
+                            ctrls[1].doSome2();
+                        }
+                    }
+        })
+    })(angular)
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo.search">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>search</title>
+    <link href="../../../libs/ionic/css/ionic.css" rel="stylesheet">
+</head>
+<body ng-controller="searchWCtrl">
+
+<header class="bar bar-header bar-assertive item-input-inset">
+    <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" ng-model="wd" ng-blur="saveWord()" placeholder="请输入关键字!">
+    </label>
+    <button class="button button-clear">搜索</button>
+</header>
+
+<section class="scroll overflow-scroll scroll-content has-header">
+    <div class="list">
+        <div ng-repeat="n in productList" class="item item-thumbnail-left item-text-wrap">
+            <img ng-src="{{n.goodsListImg}}">
+            <p>{{n.goodsName}}</p>
+        </div>
+    </div>
+</section>
+
+<script src="../../../libs/ionic/js/ionic.bundle.js"></script>
+<script src="../../app/services/demo.search.services.js"></script>
+<script src="../../app/controllers/demo.search.controllers.js"></script>
+<script src="../../app/app.js"></script>
+</body>
+</html>

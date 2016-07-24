@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>$q</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="oneSev">
+
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .service("oneService",function($http,$q){
+
+                    var url="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=angular&json=1&p=3&&req=2&csor=7&pwd=angula&cb=JSON_CALLBACK";
+                    this.getList = function(){
+                        var defered = $q.defer();
+                        $http({
+                            method:"JSONP",
+                            url:url,
+                            responseType:"json"
+                        }).success(function(data){
+                            defered.resolve(data);
+                        }).error(function(err){
+                            defered.reject(data);
+                        });
+
+                        return defered.promise;
+                    }
+
+                })
+                .controller("oneSev",function($scope,oneService){
+                    oneService.getList().then(function(data){
+                        console.log(data);
+                    },function(error){},function(notice){
+
+                    })
+
+                })
+
+    })(angular)
+</script>
+</body>
+</html>

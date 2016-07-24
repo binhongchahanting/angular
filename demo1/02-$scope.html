@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body >
+
+{{msg}}
+{{msg2}}
+{{msg3}}
+<div ng-controller="one as c">
+    {{msg}}
+    {{msg2}}
+    {{msg3}}
+    {{c.msg4}}
+</div>
+
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+
+                .controller("one",function($scope,$rootScope){
+                    $rootScope.msg = "gloable data"
+                    $scope.msg2 = "this is private data!";
+                    var msg3 = "sss";
+                    this.msg4 = "sdfsadf"
+                })
+
+
+    })(angular)
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="one">
+
+<!--
+<div class="well">
+    currency格式化:
+    {{ currdata | currency : "￥"}}
+    <div class="well">
+        JS {{ currdata2 }}
+    </div>
+</div>
+
+
+<div class="well">
+    Date格式化 {{ jdate | date : "mediumTime"}}
+    <div class="well">
+        Date {{ jdate2 }}
+    </div>
+</div>
+
+<div class="well">
+    大小写的格式化 {{ letter | lowercase}}
+    <div class="well">
+        js {{ letter2 }}
+    </div>
+</div>
+
+
+<div class="well">
+    json格式化
+    <pre>{{ jdata | json}}</pre>
+    <div class="well">
+        js <pre>{{ jdata3 }}</pre>
+    </div>
+</div>
+
+
+<div class="well">
+    limitto格式化
+    <pre> {{ jdata | limitTo:1 | json}} </pre>
+    <div class="well">
+
+    </div>
+</div>
+
+
+<div class="well">
+    number格式化
+    <pre> {{ numb1 | number:5}} </pre>
+    <div class="well">
+       {{numb2}}
+    </div>
+</div>
+-->
+
+<div class="well">
+    <table class="table table-bordered">
+        <thead>
+           <tr >
+               <th style="text-align: center">
+                   <a style="cursor: pointer"
+                      ng-click="orderTitle='title'; orderTr= !orderTr">标题</a></th>
+               <th style="text-align: center">
+                   <a style="cursor: pointer"
+                      ng-click="orderTitle='price'; orderTr= !orderTr">价格</a></th>
+               <th style="text-align: center">
+                   <a style="cursor: pointer"
+                      ng-click="orderTitle='quality'; orderTr= !orderTr">数量</a></th>
+               <th style="text-align: center">
+                   <a style="cursor: pointer"
+                      ng-click="">图片</a></th>
+           </tr>
+        </thead>
+        <tbody>
+           <tr>
+               <td><input type="text" ng-model="title"></td>
+               <td><input type="text" ng-model="price"></td>
+               <td><input type="text" ng-model="quality"></td>
+               <td><input type="text"></td>
+
+           </tr>
+           <tr ng-repeat="n in jdata | filter:{'title':title,'price':price,'quality':quality} | orderBy:orderTitle:orderTr">
+               <td>{{n.title}}</td>
+               <td>{{n.price | currency:"￥"}}</td>
+               <td>{{n.quality}}</td>
+               <td><img ng-src="{{n.pic}}"></td>
+           </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .controller("one",function($scope,$filter){
+                    $scope.currdata = 23232332323.99;
+                    $scope.currdata2= $filter("currency")(72372737237.3323,"￥");
+
+                    $scope.jdate = new Date();
+                    $scope.jdate2 = $filter("date")( new Date(),"longDate");
+
+                    $scope.letter = "adfasdfEeEQREQAAaa";
+                    $scope.letter2= $filter("lowercase")("adfasdfEeEQREQAAaa")
+
+                    $scope.jdata = [
+                        {
+                            "title":"A休闲零食膨化食品19.9包邮礼包",
+                            "price":666,
+                            "quality":17,
+                            "pic":"assets/77f4.jpg"
+                        },
+                        {
+                            "title":"BUYUK九分裤 男2016夏装 男士新款小脚",
+                            "price":888,
+                            "quality":31,
+                            "pic":"assets/a13.jpg"
+                        },
+                        {
+                            "title":"C厚生记休闲零食大礼包礼盒 满",
+                            "price":222,
+                            "quality":6,
+                            "pic":"assets/e2.jpg"
+                        }
+                    ];
+
+                    $scope.orderTitle = 'price';
+                    $scope.orderTr = false;
+                   var jdata2 = [
+                        {
+                            "title":"休闲零食膨化食品19.9包邮礼包",
+                            "price":666,
+                            "quality":1,
+                            "pic":"assets/77f4.jpg"
+                        },
+                        {
+                            "title":"UYUK九分裤 男2016夏装 男士新款小脚",
+                            "price":888,
+                            "quality":1,
+                            "pic":"assets/a13.jpg"
+                        },
+                        {
+                            "title":"厚生记休闲零食大礼包礼盒 满",
+                            "price":222,
+                            "quality":1,
+                            "pic":"assets/e2.jpg"
+                        }
+                    ];
+
+                   $scope.jdata3= $filter("json")(jdata2);
+
+                   $scope.numb1= 2342041234012034.6238823;
+
+                   $scope.numb2= $filter("number")(2342041234012034.6238823,2)
+
+
+                })
+    })(angular)
+</script>
+</body>
+</html>

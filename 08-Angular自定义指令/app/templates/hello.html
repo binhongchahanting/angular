@@ -1,0 +1,33 @@
+<section class="panel panel-danger">
+    <div class="panel-heading">
+        <a class="panel-title">{{title}}</a>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-md-3 control-label">
+                    用户名：
+                </label>
+                <div class="col-md-6">
+                    <input type="text" ng-model="userName"  placeholder="请输入用户名!" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">
+                    密码：
+                </label>
+                <div class="col-md-6">
+                    <input type="password" ng-model="password"  placeholder="*********" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6">
+                    <a class="btn btn-danger" ng-click="cmd()">登录</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer" ng-transclude>
+
+    </div>
+</section>

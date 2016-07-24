@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="oneCtrl">
+
+<pre>
+    {{proInfo | json}}
+</pre>
+
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        //provider factory service
+        var app= $.module("demo",[]);
+
+        //3. 通过service来创建自定义服务 / $
+        app.service("oneService",function($http){
+            //1.查询商品信息
+            this.getProductsInfo = function(){
+                return {"title":"apple 4s","price":"3000"}
+            }
+
+            //2.删除商品信息
+            this.deleteProductInfo = function(){
+                return true;
+            }
+
+
+
+        })
+
+        app.controller("oneCtrl",[
+            "$scope",
+            "oneService",
+            function($scope,oneService){
+
+                $scope.proInfo = oneService.getProductsInfo();
+                console.log($scope.proInfo)
+            }])
+
+
+
+    })(angular)
+</script>
+</body>
+</html>

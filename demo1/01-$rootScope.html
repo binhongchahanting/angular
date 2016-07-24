@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body >
+
+{{msg}}
+<div ng-controller="one">
+    {{msg}}
+    {{msg2}}
+</div>
+
+<div ng-controller="secn">
+    {{msg}}
+    {{msg2}}
+</div>
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .run(function($rootScope){
+
+                })
+                .controller("one",function($scope,$rootScope){
+                    $rootScope.msg = "gloable data"
+                    $scope.msg2 = "this is private data!"
+                })
+                .controller("secn",function($scope){
+                    $scope.msg2 = "this is secn private data!"
+                });
+
+    })(angular)
+</script>
+</body>
+</html>

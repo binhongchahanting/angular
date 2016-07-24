@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-hans" ng-app="demo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>demo</title>
+    <link href="../libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="one">
+
+<div class="well">
+    <input type="text" ng-model="times">
+    {{times}}
+</div>
+
+<script src="../libs/angular/angular.js"></script>
+<script>
+    (function($){
+        $.module("demo",[])
+                .controller("one",function($scope,$interval){
+                    $scope.times = new Date().toLocaleTimeString();
+                   /* setInterval(function(){
+                        $scope.$apply(function(){
+                            $scope.times = new Date().toLocaleTimeString();
+                        })
+
+                        console.log($scope.times);
+                    },1000)*/
+
+                    // setInterval == $interval
+                    // $开始的所有angular类,都会触发Dirty Checking
+                    $interval(function () {
+                        $scope.times = new Date().toLocaleTimeString();
+                    },1000)
+                })
+    })(angular)
+</script>
+</body>
+</html>
